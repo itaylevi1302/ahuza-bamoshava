@@ -113,6 +113,7 @@
   .nav > * { pointer-events: auto; }
   .nav::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--bg); opacity: 0; transition: opacity .35s ease, background-color .6s ease; box-shadow: 0 1px 0 var(--line); pointer-events: none; }
   .nav.solid::before { opacity: .96; }
+  .nav.solid .brand { mix-blend-mode: normal; color: var(--fg); }
   .brand { font-family: var(--display); font-weight: 700; font-size: 24px; text-decoration: none; color: #fff; mix-blend-mode: difference; letter-spacing: .01em; }
   .brand small { font-family: var(--body); font-weight: 300; font-size: 11px; letter-spacing: .34em; display: block; opacity: .8; margin-top: 2px; }
   .pill {
@@ -182,6 +183,10 @@
   .panel h3 { font-size: clamp(26px, 2.6vw, 40px); }
   .panel p { color: var(--mist); font-size: 16px; margin-top: 4px; max-width: 46ch; }
   @media (max-width: 760px) { .panel { width: 84vw; } .panel .frame { height: 58vh; } }
+  .panel.more .frame { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 22px; padding: clamp(28px, 5vw, 72px); background: var(--ink); color: #efe9df; }
+  .panel.more h3 { font-size: clamp(32px, 4vw, 60px); font-weight: 300; line-height: 1.1; }
+  .panel.more h3 b { font-weight: 700; color: var(--lamp); }
+  .panel.more p { color: rgba(239, 233, 223, .72); font-size: 17px; max-width: 40ch; }
 
   /* ── Day → Night ── */
   #daynight { position: relative; height: 100vh; height: 100svh; overflow: hidden; background: #000; color: #fbf7f0; }
@@ -337,21 +342,43 @@
   <!-- SPOTS -->
   <section id="spots" aria-label="פינות הצילום">
     <div class="spots-head wrap">
-      <h2>חמש פינות,<br><b>אינסוף פריימים</b></h2>
-      <span class="counter"><b id="cnt">01</b> / 05</span>
+      <h2>כל פינה כאן<br><b>היא סט צילום</b></h2>
+      <span class="counter">פינה <b id="cnt">01</b></span>
     </div>
     <div class="track-wrap">
       <div class="track" id="track">
-        <article class="panel"><div class="frame"><video data-src="media/mirror.mp4" poster="media/mirror-poster.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="cap"><span class="n">01</span><div><h3>בריכת המראה</h3><p>המים שקטים ומשקפים את הבית ואת השמיים. שמלה לבנה על שפת הבריכה.</p></div></div></article>
-        <article class="panel"><div class="frame"><video data-src="media/jacuzzi.mp4" poster="media/jacuzzi-poster.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="cap"><span class="n">02</span><div><h3>הג׳קוזי בין הסלעים</h3><p>מבט מלמעלה: אבן בהירה, ירוק ומים, ומדרגות שמטפסות בין הסלעים.</p></div></div></article>
-        <article class="panel"><div class="frame"><video data-src="media/lounge.mp4" poster="media/lounge-poster.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="cap"><span class="n">03</span><div><h3>הסלון החיצוני</h3><p>קירות זכוכית, אבן בהירה ובריכה שנכנסת עד הרגליים.</p></div></div></article>
-        <article class="panel"><div class="frame"><video data-src="media/path.mp4" poster="media/path-poster.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="cap"><span class="n">04</span><div><h3>שביל האבנים</h3><p>שביל מתפתל בין עצי פרי ושיחים, עד הפרגולה בקצה הגן.</p></div></div></article>
-        <article class="panel"><div class="frame"><video data-src="media/approach.mp4" poster="media/approach-poster.jpg" muted loop playsinline preload="none"></video></div>
-          <div class="cap"><span class="n">05</span><div><h3>הבית מול הדשא</h3><p>חזית לבנה, בריכה לכל האורך ומרחב דשא פתוח לצילומים רחבים.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-infinity.mp4" poster="media/c-infinity-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">01</span><div><h3>בריכת האינסוף</h3><p>מים שקטים, בטון לבן ונוף פתוח עד האופק. בימים בלי רוח הבריכה הופכת למראה.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-loungers.mp4" poster="media/c-loungers-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">02</span><div><h3>מיטות השמש במים</h3><p>מיטות לבנות בתוך הבריכה, מול קירות הבית. פריים נקי לצילומי אופנה.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-sofa.mp4" poster="media/c-sofa-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">03</span><div><h3>הסלון החיצוני</h3><p>ספה לבנה ענקית תחת גג בטון, קירות זכוכית ואור רך כל היום.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-table.mp4" poster="media/c-table-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">04</span><div><h3>שולחן האירוח</h3><p>שולחן עץ ארוך עם כיסאות אדומים, במרפסת המקורה מול הבריכה.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-edge.mp4" poster="media/c-edge-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">05</span><div><h3>שפת הבריכה והדשא</h3><p>קו המים פוגש את הדשא. זוויות נמוכות והשתקפויות של הבית.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-view.mp4" poster="media/c-view-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">06</span><div><h3>עמדת הנוף</h3><p>פינה פתוחה בקצה המרפסת: עץ באדנית, בטון חשוף ונוף העמק ברקע.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-float.mp4" poster="media/c-float-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">07</span><div><h3>הבית המרחף</h3><p>קורת הבטון מרחפת מעל גן הסלעים. מסגרת אדריכלית לצילום מלמטה.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-steps.mp4" poster="media/c-steps-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">08</span><div><h3>מדרגות האבן</h3><p>מדרגות אבן גדולות בין סלעים ולבנדר, עד הג׳קוזי בגן.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-jacuzzi.mp4" poster="media/c-jacuzzi-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">09</span><div><h3>הג׳קוזי בין הסלעים</h3><p>מבט מלמעלה: אבן בהירה, ירוק ומים, ושבילים שמטפסים בין הסלעים.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-pergola.mp4" poster="media/c-pergola-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">10</span><div><h3>שביל האבנים והפרגולה</h3><p>שביל מתפתל בין עצי פרי ושיחים, עד הפרגולה בקצה הגן.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-olive.mp4" poster="media/c-olive-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">11</span><div><h3>עץ הזית במדשאה</h3><p>מדשאה רחבה, עץ זית עתיק ושבילי אבן עם נוף פתוח.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-npool.mp4" poster="media/c-npool-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">12</span><div><h3>הבריכה בלילה</h3><p>המים מוארים בטורקיז והקירות זוהרים באור חם.</p></div></div></article>
+        <article class="panel"><div class="frame"><video data-src="media/c-npergola.mp4" poster="media/c-npergola-poster.jpg" muted loop playsinline preload="none"></video></div>
+          <div class="cap"><span class="n">13</span><div><h3>הפרגולה בלילה</h3><p>תאורת גן מכוונת הופכת את השביל והפרגולה לסט לילי.</p></div></div></article>
+        <article class="panel more"><div class="frame">
+            <span class="eyebrow">ועוד</span>
+            <h3>ועוד הרבה פינות<br><b>שכדאי לראות במקום</b></h3>
+            <p>כל האחוזה בנויה כסט צילום: מהמרפסות והבריכה ועד השבילים והסלעים בגן. מתאמים סיור עם עופר ובוחרים פינות לפי הצילום.</p>
+            <a class="pill js-wa" href="https://wa.me/972522696358?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%95%D7%A4%D7%A8%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%A6%D7%99%D7%9C%D7%95%D7%9E%D7%99%D7%9D%20%D7%91%D7%90%D7%97%D7%95%D7%96%D7%94%20%D7%91%D7%9E%D7%95%D7%A9%D7%91%D7%94" target="_blank" rel="noopener">לתיאום בוואטסאפ</a>
+          </div></article>
       </div>
     </div>
   </section>
@@ -589,7 +616,7 @@
 
   /* ── Spots: pinned horizontal track; parallax from cached geometry, no layout reads per frame ── */
   var track = $("#track"), panels = $$(".panel", track), cnt = $("#cnt");
-  var pVids = panels.map(function (p) { return gsap.quickSetter(p.querySelector("video"), "xPercent"); });
+  var pVids = panels.map(function (p) { var v = p.querySelector("video"); return v ? gsap.quickSetter(v, "xPercent") : function () {}; });
   var geo = [], vw = window.innerWidth, lastIdx = -1;
   function dist() { return Math.max(0, track.scrollWidth - window.innerWidth); }
   function measure() {
@@ -610,7 +637,7 @@
           var d = Math.abs(c - vw / 2);
           if (d < bestD) { bestD = d; best = i; }
         }
-        if (best !== lastIdx) { lastIdx = best; cnt.textContent = String(best + 1).padStart(2, "0"); }
+        if (best !== lastIdx) { lastIdx = best; cnt.textContent = String(Math.min(best + 1, panels.length - 1)).padStart(2, "0"); }
       }
     }
   });
