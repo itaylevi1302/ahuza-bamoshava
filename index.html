@@ -17,7 +17,7 @@
 <meta name="description" content="האחוזה במושבה – לוקיישן לצילומים מיוחדים ביוקנעם המושבה: כלות, אופנה, קטלוגים ומפגשי חתן כלה. בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap">
 <script>
   (function () {
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -153,7 +153,11 @@
   #statement .eyebrow { display: block; margin-bottom: 34px; }
   .big-text { font-family: var(--display); font-weight: 300; font-size: clamp(34px, 5.4vw, 86px); line-height: 1.12; max-width: 17ch; text-wrap: balance; }
   .big-text .w { display: inline-block; }
-  .big-text em { font-style: normal; color: #9b7a48; font-weight: 500; }
+  .big-text em { font-style: normal; }
+  /* the film plays inside the letters: the text layer is page-coloured with black type, blended with "lighten" */
+  .big-media { position: relative; isolation: isolate; width: fit-content; max-width: 100%; }
+  .big-media video { position: absolute; inset: 3px; width: calc(100% - 6px); height: calc(100% - 6px); object-fit: cover; z-index: 0; }
+  .big-media .big-text { position: relative; z-index: 1; margin: 0; padding-block: .06em; background: var(--bg); color: #000; mix-blend-mode: lighten; font-weight: 800; letter-spacing: -.01em; }
   .stat-row { margin-top: clamp(50px, 8vh, 90px); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; border-top: 1px solid var(--line); padding-top: 26px; }
   .stat-row div { min-width: 0; }
   .stat-row b { display: block; font-family: var(--display); font-weight: 500; font-size: 26px; margin-bottom: 4px; }
@@ -324,7 +328,10 @@
   <!-- STATEMENT -->
   <section id="statement" class="wrap">
     <span class="eyebrow">המקום</span>
-    <p class="big-text" id="bigText">בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת. פינות צילום רבות שעוצבו אדריכלית. <em>כל פינה כאן היא פריים.</em></p>
+    <div class="big-media">
+      <video data-src="media/letters.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <p class="big-text" id="bigText">בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת. פינות צילום רבות שעוצבו אדריכלית. <em>כל פינה כאן היא פריים.</em></p>
+    </div>
     <div class="stat-row">
       <div><b>כלות, אופנה וקטלוגים</b><span>לוקיישן המיועד לצילומים</span></div>
       <div><b>יום ולילה</b><span>הבית והגן מוארים אחרי השקיעה</span></div>
