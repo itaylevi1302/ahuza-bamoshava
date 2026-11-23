@@ -6,15 +6,15 @@
 <meta name="theme-color" content="#0a0f13">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="he_IL">
-<meta property="og:title" content="האחוזה במושבה – לוקיישן לצילומי כלות">
-<meta property="og:description" content="בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורת לילה. יוקנעם המושבה. לתיאום: עופר אפרים 052-2696358">
+<meta property="og:title" content="האחוזה במושבה – לוקיישן לצילומים מיוחדים">
+<meta property="og:description" content="צילומי כלות, אופנה וקטלוגים ומפגשי חתן כלה. בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת. יוקנעם המושבה. לתיאום: עופר אפרים 052-2696358">
 <meta property="og:image" content="https://itaylevi1302.github.io/ahuza-bamoshava/media/dusk.jpg">
 <meta property="og:url" content="https://itaylevi1302.github.io/ahuza-bamoshava/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0f13'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23d7ad72' font-family='serif' font-weight='700'%3Eא%3C/text%3E%3C/svg%3E">
 <title>האחוזה במושבה</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="האחוזה במושבה – לוקיישן לצילומי כלות ביוקנעם המושבה. בריכת אינסוף, ג׳קוזי בין הסלעים, גן אבן ותאורת לילה.">
+<meta name="description" content="האחוזה במושבה – לוקיישן לצילומים מיוחדים ביוקנעם המושבה: כלות, אופנה, קטלוגים ומפגשי חתן כלה. בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;700&family=Heebo:wght@300;400;500&display=swap">
@@ -111,6 +111,8 @@
     pointer-events: none;
   }
   .nav > * { pointer-events: auto; }
+  .nav::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--bg); opacity: 0; transition: opacity .35s ease, background-color .6s ease; box-shadow: 0 1px 0 var(--line); pointer-events: none; }
+  .nav.solid::before { opacity: .96; }
   .brand { font-family: var(--display); font-weight: 700; font-size: 24px; text-decoration: none; color: #fff; mix-blend-mode: difference; letter-spacing: .01em; }
   .brand small { font-family: var(--body); font-weight: 300; font-size: 11px; letter-spacing: .34em; display: block; opacity: .8; margin-top: 2px; }
   .pill {
@@ -300,7 +302,7 @@
       <video id="heroVideo" data-src="media/hero.mp4" poster="media/hero-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero-copy wrap" id="heroCopy">
-      <span class="eyebrow">לוקיישן לצילומי כלות</span>
+      <span class="eyebrow">לוקיישן לצילומים מיוחדים</span>
       <h1>
         <span class="mask"><span>בית לבן, מים ואבן.</span></span>
         <span class="mask"><span class="gold">הפריים שחיכיתם לו.</span></span>
@@ -317,11 +319,11 @@
   <!-- STATEMENT -->
   <section id="statement" class="wrap">
     <span class="eyebrow">המקום</span>
-    <p class="big-text" id="bigText">בית בקווים נקיים, בריכת אינסוף שמשקפת את השמיים, גן סלעים ומדרגות אבן. <em>כל פינה כאן היא פריים.</em></p>
+    <p class="big-text" id="bigText">בית לבן, בריכת אינסוף, ג׳קוזי בין הסלעים ותאורה מהפנטת. פינות צילום רבות שעוצבו אדריכלית. <em>כל פינה כאן היא פריים.</em></p>
     <div class="stat-row">
-      <div><b>צילומי כלות</b><span>המקום מיועד לצילומים בלבד</span></div>
+      <div><b>כלות, אופנה וקטלוגים</b><span>לוקיישן המיועד לצילומים</span></div>
       <div><b>יום ולילה</b><span>הבית והגן מוארים אחרי השקיעה</span></div>
-      <div><b>יוקנעם המושבה</b><span>בית פרטי עם נוף פתוח</span></div>
+      <div><b>מפגשי חתן כלה</b><span>קיימת אופציה למפגש לפני החתונה</span></div>
     </div>
   </section>
 
@@ -405,7 +407,8 @@
   <section id="know" class="wrap">
     <h2>טוב לדעת</h2>
     <ul class="know-list">
-      <li class="k"><b>לצילומים בלבד</b><span>האחוזה מיועדת לצילומי כלות. אין במקום התארגנות.</span></li>
+      <li class="k"><b>למה המקום מתאים</b><span>האחוזה מיועדת לצילומים: כלות, אופנה, קטלוגים ועוד.</span></li>
+      <li class="k"><b>מפגשי חתן כלה</b><span>קיימת אופציה למפגש חתן כלה באחוזה. כדאי לציין זאת בהודעה.</span></li>
       <li class="k"><b>יום ולילה</b><span>אפשר לצלם באור יום, בשעת הזהב ואחרי השקיעה, כשהבריכה והגן מוארים.</span></li>
       <li class="k"><b>תיאום מראש</b><span>כל צילום מתואם מראש מול עופר. שלחו הודעה עם התאריך המבוקש.</span></li>
     </ul>
@@ -425,7 +428,7 @@
       </div>
       <span class="copied" id="copied" aria-live="polite"></span>
     </div>
-    <footer class="wrap" style="position:absolute;left:0;right:0;bottom:0"><span>האחוזה במושבה · יוקנעם המושבה</span><span>לוקיישן לצילומי כלות</span></footer>
+    <footer class="wrap" style="position:absolute;left:0;right:0;bottom:0"><span>האחוזה במושבה · יוקנעם המושבה</span><span>לוקיישן לצילומים מיוחדים</span></footer>
   </section>
 </main>
 
@@ -506,6 +509,7 @@
     /* created after the pinned sections so their positions include the pin spacing */
     ScrollTrigger.create({ trigger: "#statement", start: "top 70%", onEnter: function () { $("#fab").classList.add("on"); }, onLeaveBack: function () { $("#fab").classList.remove("on"); } });
     ScrollTrigger.create({ trigger: "#film", start: "top 75%", end: "max", toggleClass: { targets: document.body, className: "night" } });
+    ScrollTrigger.create({ trigger: "#statement", start: "top 90px", end: "max", toggleClass: { targets: ".nav", className: "solid" } });
   }
 
   if (reduce) { lateTriggers(); clearTimeout(failsafe); endIntro(); return; }
