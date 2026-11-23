@@ -73,10 +73,10 @@
 
   /* film grain over everything, like the reel */
   .grain {
-    position: absolute; inset: -50%; opacity: .07;
+    position: absolute; inset: 0; opacity: .06;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    animation: grain 1s steps(6) infinite;
   }
+  @media (pointer: coarse) { .grain-wrap { display: none; } }
   .grain-wrap { position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden; }
   @keyframes grain { 0%{transform:translate(0,0)} 20%{transform:translate(-4%,3%)} 40%{transform:translate(3%,-5%)} 60%{transform:translate(-6%,-2%)} 80%{transform:translate(5%,4%)} 100%{transform:translate(0,0)} }
   html.reduce .grain { animation: none; }
@@ -120,13 +120,14 @@
     transition: background-color .3s, color .3s;
   }
   .pill:hover { background: #f1d3a5; }
-  .pill.ghost { background: rgba(255, 255, 255, .08); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .pill.ghost { background: rgba(10, 14, 16, .38); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45); }
   .pill.ghost:hover { background: rgba(255, 255, 255, .2); }
   .pill svg { width: 18px; height: 18px; flex: none; }
 
   /* ── Hero ── */
   #hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; background: #000; overflow: hidden; }
-  .hero-media { position: absolute; inset: 0; overflow: hidden; will-change: clip-path; }
+  .hero-media { position: absolute; inset: 0; overflow: hidden; border-radius: 0; transition: border-radius .5s ease; will-change: transform; transform: translateZ(0); }
+  .hero-media.card { border-radius: 30px; }
   .hero-media video { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; }
   .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5, 8, 10, .78), rgba(5, 8, 10, .15) 45%, rgba(5, 8, 10, .35)); }
   .hero-copy {
@@ -184,9 +185,11 @@
   #daynight { position: relative; height: 100vh; height: 100svh; overflow: hidden; background: #000; color: #fbf7f0; }
   .dn-layer { position: absolute; inset: 0; }
   .dn-layer video { width: 100%; height: 100%; object-fit: cover; }
-  .dn-night { clip-path: inset(0 0 0 100%); }
-  .dn-layer::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, transparent 40%, rgba(0,0,0,.55)); }
-  .dn-seam { position: absolute; top: 0; bottom: 0; right: 0; width: 2px; background: #ffe7c2; box-shadow: 0 0 24px 6px rgba(255, 210, 150, .7), 0 0 80px 20px rgba(255, 180, 110, .35); opacity: 0; z-index: 3; }
+  .dn-night { overflow: hidden; will-change: transform; }
+  .dn-night .dn-inner { position: absolute; inset: 0; will-change: transform; }
+  .dn-day video, .dn-inner video { will-change: transform; }
+  .dn-day::after, .dn-inner::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, transparent 40%, rgba(0,0,0,.55)); }
+  .dn-seam { position: absolute; top: 0; bottom: 0; right: 0; width: 2px; will-change: transform; background: #ffe7c2; box-shadow: 0 0 24px 6px rgba(255, 210, 150, .7), 0 0 80px 20px rgba(255, 180, 110, .35); opacity: 0; z-index: 3; }
   .dn-copy { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; text-align: center; pointer-events: none; }
   .dn-copy h2 { font-size: clamp(44px, 8vw, 132px); font-weight: 300; text-shadow: 0 6px 40px rgba(0, 0, 0, .45); }
   .dn-copy h2 .l2 { display: block; font-weight: 700; color: #ffdcab; }
@@ -294,7 +297,7 @@
   <!-- HERO -->
   <section id="hero" aria-label="פתיחה">
     <div class="hero-media" id="heroMedia">
-      <video id="heroVideo" src="media/hero.mp4" poster="media/hero-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+      <video id="heroVideo" data-src="media/hero.mp4" poster="media/hero-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero-copy wrap" id="heroCopy">
       <span class="eyebrow">לוקיישן לצילומי כלות</span>
@@ -354,7 +357,7 @@
   <!-- DAY -> NIGHT -->
   <section id="daynight" aria-label="מיום ללילה">
     <div class="dn-layer dn-day"><video data-src="media/approach.mp4" poster="media/approach-poster.jpg" muted loop playsinline preload="none"></video></div>
-    <div class="dn-layer dn-night" id="dnNight"><video data-src="media/nhouse.mp4" poster="media/nhouse-poster.jpg" muted loop playsinline preload="none"></video></div>
+    <div class="dn-layer dn-night" id="dnNight"><div class="dn-inner" id="dnInner"><video data-src="media/nhouse.mp4" poster="media/nhouse-poster.jpg" muted loop playsinline preload="none"></video></div></div>
     <div class="dn-seam" id="dnSeam"></div>
     <div class="dn-copy"><h2><span class="l1" id="dnL1">וכשהשמש שוקעת…</span><span class="l2" id="dnL2">מתחיל הקסם</span></h2></div>
     <span class="dn-tag day">שעת זהב</span>
@@ -455,7 +458,7 @@
           var p = v.play(); if (p && p.catch) p.catch(function () {});
         } else if (v.src) { v.pause(); }
       });
-    }, { rootMargin: "300px 0px" });
+    }, { rootMargin: "150px 0px" });
     vids.forEach(function (v) { io.observe(v); });
   } else { vids.forEach(function (v) { v.src = v.dataset.src; v.play(); }); }
 
@@ -481,11 +484,13 @@
 
   if (!window.gsap || !window.ScrollTrigger) { clearTimeout(failsafe); endIntro(); $("#fab").classList.add("on"); return; }
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  gsap.config({ force3D: true });
 
   /* smooth scroll */
   var lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
+    lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -495,7 +500,7 @@
   }
 
   /* progress bar */
-  gsap.to("#prog", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
+  gsap.to("#prog", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: true } });
 
   function lateTriggers() {
     /* created after the pinned sections so their positions include the pin spacing */
@@ -530,14 +535,15 @@
   var hv = $("#heroVideo");
   Promise.all([
     document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve(),
-    new Promise(function (r) { if (hv.readyState >= 3) r(); else { hv.addEventListener("canplay", r, { once: true }); setTimeout(r, 2200); } })
+    new Promise(function (r) { if (!hv.src) hv.src = hv.dataset.src; if (hv.readyState >= 3) r(); else { hv.addEventListener("canplay", r, { once: true }); setTimeout(r, 2200); } })
   ]).then(go);
   setTimeout(go, 3000);
 
-  /* ── Hero: pinned, the film shrinks into a framed print ── */
-  var mm = gsap.matchMedia();
-  gsap.timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "+=90%", scrub: 0.6, pin: true, anticipatePin: 1 } })
-    .fromTo("#heroMedia", { clipPath: "inset(0% 0% 0% 0% round 0px)" }, { clipPath: "inset(9% 7% 9% 7% round 28px)", ease: "none" }, 0)
+  /* ── Hero: pinned, the film shrinks into a framed print (transform only) ── */
+  var heroMedia = $("#heroMedia");
+  gsap.timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "+=90%", scrub: true, pin: true, anticipatePin: 1,
+      onUpdate: function (self) { heroMedia.classList.toggle("card", self.progress > 0.03); } } })
+    .fromTo(heroMedia, { scale: 1 }, { scale: 0.84, ease: "none" }, 0)
     .to("#heroCopy", { yPercent: -35, autoAlpha: 0, ease: "none" }, 0)
     .to(".scroll-cue", { autoAlpha: 0, ease: "none", duration: 0.2 }, 0);
 
@@ -546,95 +552,98 @@
   (function split(el) {
     var out = [];
     Array.prototype.slice.call(el.childNodes).forEach(function (n) {
-      if (n.nodeType === 3) {
-        n.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) out.push(document.createTextNode(part));
-          else { var s = document.createElement("span"); s.className = "w"; s.textContent = part; out.push(s); }
-        });
-      } else {
-        var wrap = n.cloneNode(false);
-        n.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) wrap.appendChild(document.createTextNode(part));
-          else { var s = document.createElement("span"); s.className = "w"; s.textContent = part; wrap.appendChild(s); }
-        });
-        out.push(wrap);
-      }
+      var host = n.nodeType === 3 ? null : n.cloneNode(false);
+      n.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        var node;
+        if (/^\s+$/.test(part)) node = document.createTextNode(part);
+        else { node = document.createElement("span"); node.className = "w"; node.textContent = part; }
+        if (host) host.appendChild(node); else out.push(node);
+      });
+      if (host) out.push(host);
     });
     el.textContent = ""; out.forEach(function (n) { el.appendChild(n); });
   })(bt);
-  gsap.fromTo($$(".w", bt), { opacity: 0.14, y: 8 }, { opacity: 1, y: 0, ease: "none", stagger: 0.1, scrollTrigger: { trigger: bt, start: "top 82%", end: "bottom 45%", scrub: 0.5 } });
-  gsap.from(".stat-row > div", { y: 40, opacity: 0.2, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: ".stat-row", start: "top 92%", end: "top 60%", scrub: 0.6 } });
+  gsap.fromTo($$(".w", bt), { opacity: 0.14 }, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: bt, start: "top 82%", end: "bottom 45%", scrub: true } });
+  gsap.from(".stat-row > div", { y: 40, opacity: 0.2, stagger: 0.12, ease: "none", scrollTrigger: { trigger: ".stat-row", start: "top 92%", end: "top 60%", scrub: true } });
 
-  /* ── Marquee: drifts on its own, speeds up and flips with scroll velocity ── */
-  var mq = $("#mq"), mqX = 0, mqDir = 1, mqBoost = 0;
-  gsap.ticker.add(function () {
-    var half = mq.scrollWidth / 2;
-    mqX -= (0.6 + mqBoost) * mqDir;
-    if (mqX <= -half) mqX += half; if (mqX > 0) mqX -= half;
-    mq.style.transform = "translate3d(" + mqX + "px,0,0)";
-    mqBoost *= 0.93;
+  /* ── Marquee: drifts on its own, speeds up and flips with scroll velocity; idle when off screen ── */
+  var mq = $("#mq"), mqX = 0, mqDir = 1, mqBoost = 0, mqHalf = mq.scrollWidth / 2, mqOn = true;
+  var setMq = gsap.quickSetter(mq, "x", "px");
+  ScrollTrigger.addEventListener("refresh", function () { mqHalf = mq.scrollWidth / 2; });
+  ScrollTrigger.create({ trigger: ".marquee", start: "top bottom", end: "bottom top", onToggle: function (self) { mqOn = self.isActive; } });
+  gsap.ticker.add(function (time, dt) {
+    if (!mqOn) return;
+    var k = Math.min(3, dt / 16.67);
+    mqX -= (0.6 + mqBoost) * mqDir * k;
+    if (mqX <= -mqHalf) mqX += mqHalf;
+    if (mqX > 0) mqX -= mqHalf;
+    setMq(mqX);
+    mqBoost *= Math.pow(0.93, k);
   });
-  ScrollTrigger.create({ start: 0, end: "max", onUpdate: function (self) { mqDir = self.direction; mqBoost = Math.min(18, Math.abs(self.getVelocity()) / 220); } });
+  ScrollTrigger.create({ start: 0, end: "max", onUpdate: function (self) { mqDir = self.direction; mqBoost = Math.min(14, Math.abs(self.getVelocity()) / 260); } });
 
-  /* ── Spots: pinned horizontal track with parallax and velocity skew ── */
+  /* ── Spots: pinned horizontal track; parallax from cached geometry, no layout reads per frame ── */
   var track = $("#track"), panels = $$(".panel", track), cnt = $("#cnt");
-  var skewTo = gsap.quickTo(panels, "skewX", { duration: 0.5, ease: "power3" });
+  var pVids = panels.map(function (p) { return gsap.quickSetter(p.querySelector("video"), "xPercent"); });
+  var geo = [], vw = window.innerWidth, lastIdx = -1;
   function dist() { return Math.max(0, track.scrollWidth - window.innerWidth); }
+  function measure() {
+    vw = window.innerWidth;
+    var tx = gsap.getProperty(track, "x") || 0;
+    geo = panels.map(function (p) { var r = p.getBoundingClientRect(); return r.left - tx + r.width / 2; });
+  }
+  ScrollTrigger.addEventListener("refresh", measure);
   gsap.to(track, {
     x: function () { return dist(); }, ease: "none",
     scrollTrigger: {
-      trigger: "#spots", start: "top top", end: function () { return "+=" + dist(); }, pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
+      trigger: "#spots", start: "top top", end: function () { return "+=" + dist(); }, pin: true, scrub: true, invalidateOnRefresh: true, anticipatePin: 1,
       onUpdate: function (self) {
-        var vw = window.innerWidth, best = 0, bestD = 1e9;
-        panels.forEach(function (p, i) {
-          var r = p.getBoundingClientRect(), c = r.left + r.width / 2;
-          var prog = (c - vw / 2) / vw;                // -1..1 across the screen
-          gsap.set(p.querySelector("video"), { xPercent: gsap.utils.clamp(-9, 9, prog * -12) });
-          var d = Math.abs(c - vw / 2); if (d < bestD) { bestD = d; best = i; }
-        });
-        cnt.textContent = String(best + 1).padStart(2, "0");
-        skewTo(gsap.utils.clamp(-7, 7, self.getVelocity() / -320));
-      },
-      onScrubComplete: function () { skewTo(0); }
+        var tx = self.progress * dist(), best = 0, bestD = 1e9;
+        for (var i = 0; i < geo.length; i++) {
+          var c = geo[i] + tx, prog = (c - vw / 2) / vw;
+          if (prog > -1.3 && prog < 1.3) pVids[i](Math.max(-9, Math.min(9, prog * -12)));
+          var d = Math.abs(c - vw / 2);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+        if (best !== lastIdx) { lastIdx = best; cnt.textContent = String(best + 1).padStart(2, "0"); }
+      }
     }
   });
-  panels.forEach(function (p) {
-    gsap.fromTo(p.querySelector(".frame"), { clipPath: "inset(12% 0% 12% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.out", scrollTrigger: { trigger: "#spots", start: "top 85%", end: "top 20%", scrub: 0.6 } });
-  });
+  gsap.from(panels, { y: 90, opacity: 0.3, stagger: 0.08, ease: "none", scrollTrigger: { trigger: "#spots", start: "top 85%", end: "top 25%", scrub: true } });
 
-  /* ── Day to night: a lit seam sweeps the house from daylight to lamplight ── */
-  gsap.timeline({ scrollTrigger: { trigger: "#daynight", start: "top top", end: "+=170%", scrub: 0.7, pin: true, anticipatePin: 1 } })
-    .fromTo("#dnL1", { autoAlpha: 0, y: 40, filter: "blur(12px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.25 }, 0)
-    .fromTo("#dnL2", { autoAlpha: 0, scale: 1.15, filter: "blur(16px)" }, { autoAlpha: 0, duration: 0.01 }, 0)
+  /* ── Day to night: a lit seam sweeps the house from daylight to lamplight (transforms only) ── */
+  gsap.timeline({ scrollTrigger: { trigger: "#daynight", start: "top top", end: "+=170%", scrub: true, pin: true, anticipatePin: 1 } })
+    .fromTo("#dnL1", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.25 }, 0)
+    .fromTo("#dnL2", { autoAlpha: 0, scale: 1.15 }, { autoAlpha: 0, scale: 1.15, duration: 0.01 }, 0)
     .to("#dnSeam", { opacity: 1, duration: 0.05 }, 0.3)
-    .fromTo("#dnNight", { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "power1.inOut", duration: 0.6 }, 0.3)
-    .fromTo("#dnSeam", { right: "0%" }, { right: "100%", ease: "power1.inOut", duration: 0.6 }, 0.3)
-    .to("#dnL1", { autoAlpha: 0, y: -30, filter: "blur(10px)", duration: 0.2 }, 0.62)
+    .fromTo("#dnNight", { xPercent: 100 }, { xPercent: 0, ease: "power1.inOut", duration: 0.6 }, 0.3)
+    .fromTo("#dnInner", { xPercent: -100 }, { xPercent: 0, ease: "power1.inOut", duration: 0.6 }, 0.3)
+    .fromTo("#dnSeam", { x: 0 }, { x: function () { return -window.innerWidth; }, ease: "power1.inOut", duration: 0.6 }, 0.3)
+    .to("#dnL1", { autoAlpha: 0, y: -30, duration: 0.2 }, 0.62)
     .to("#dnSeam", { opacity: 0, duration: 0.05 }, 0.88)
-    .to("#dnL2", { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.25 }, 0.78)
-    .to(".dn-day video, .dn-night video", { scale: 1.12, ease: "none", duration: 1.05 }, 0);
+    .to("#dnL2", { autoAlpha: 1, scale: 1, duration: 0.25 }, 0.78)
+    .fromTo(".dn-day video, .dn-inner video", { scale: 1 }, { scale: 1.1, ease: "none", duration: 1.05 }, 0);
 
   /* ── Film: the phone swings in and settles ── */
-  gsap.fromTo("#phone", { rotateY: -28, rotateX: 8, y: 80, scale: 0.86 }, { rotateY: 0, rotateX: 0, y: 0, scale: 1, ease: "none", scrollTrigger: { trigger: "#film", start: "top 85%", end: "center 55%", scrub: 0.8 } });
-  gsap.from("#film h2, #film p, #film .actions", { y: 60, opacity: 0.15, stagger: 0.1, ease: "none", scrollTrigger: { trigger: "#film", start: "top 80%", end: "top 30%", scrub: 0.6 } });
+  gsap.fromTo("#phone", { rotateY: -28, rotateX: 8, y: 80, scale: 0.86 }, { rotateY: 0, rotateX: 0, y: 0, scale: 1, ease: "none", scrollTrigger: { trigger: "#film", start: "top 85%", end: "center 55%", scrub: true } });
+  gsap.from("#film h2, #film p, #film .actions", { y: 60, opacity: 0.15, stagger: 0.1, ease: "none", scrollTrigger: { trigger: "#film", start: "top 80%", end: "top 30%", scrub: true } });
 
-  /* ── Moments: each frame opens like a shutter, image drifts inside ── */
-  $$(".m").forEach(function (m, i) {
+  /* ── Moments: frames rise and settle, image drifts inside ── */
+  $$(".m").forEach(function (m) {
     var media = m.querySelector("img, video");
-    gsap.fromTo(m, { clipPath: "inset(14% 10% 14% 10% round 18px)" }, { clipPath: "inset(0% 0% 0% 0% round 4px)", ease: "power2.out", scrollTrigger: { trigger: m, start: "top 95%", end: "top 45%", scrub: 0.6 } });
-    gsap.fromTo(media, { yPercent: -8, scale: 1.18 }, { yPercent: 8, scale: 1, ease: "none", scrollTrigger: { trigger: m, start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(m, { y: 80, scale: 0.9 }, { y: 0, scale: 1, ease: "none", scrollTrigger: { trigger: m, start: "top 100%", end: "top 55%", scrub: true } });
+    gsap.fromTo(media, { yPercent: -8, scale: 1.15 }, { yPercent: 8, scale: 1, ease: "none", scrollTrigger: { trigger: m, start: "top bottom", end: "bottom top", scrub: true } });
   });
 
   /* ── Good to know ── */
   $$(".k").forEach(function (k) {
-    gsap.from(k, { x: 60, opacity: 0.15, ease: "power3.out", scrollTrigger: { trigger: k, start: "top 92%", end: "top 65%", scrub: 0.6 } });
+    gsap.from(k, { x: 60, opacity: 0.15, ease: "none", scrollTrigger: { trigger: k, start: "top 92%", end: "top 65%", scrub: true } });
   });
 
   /* ── Contact: the night house zooms back as you arrive ── */
-  gsap.fromTo("#contact .bgv video", { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "#contact", start: "top bottom", end: "top top", scrub: true } });
-  gsap.from(".contact-in > *", { y: 70, opacity: 0.1, stagger: 0.08, ease: "none", scrollTrigger: { trigger: "#contact", start: "top 70%", end: "top 15%", scrub: 0.6 } });
+  gsap.fromTo("#contact .bgv video", { scale: 1.3 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "#contact", start: "top bottom", end: "top top", scrub: true } });
+  gsap.from(".contact-in > *", { y: 70, opacity: 0.1, stagger: 0.08, ease: "none", scrollTrigger: { trigger: "#contact", start: "top 70%", end: "top 15%", scrub: true } });
 
   /* magnetic buttons (mouse only) */
   if (window.matchMedia("(pointer: fine)").matches) {
